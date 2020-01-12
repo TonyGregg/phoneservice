@@ -4,13 +4,13 @@ server:
 spring:
   application:
     name: Mini-Cars-Phone-update-Servie
-  datasource:
-    hikari:
-      maximum-pool-size: 35
-      pool-name: mini-car-email-update-db-pool
-    url: jdbc:mysql://localhost:3306/sys
-    userName: tacos
-    password: password123
+#  datasource:
+#    hikari:
+#      maximum-pool-size: 35
+#      pool-name: mini-car-email-update-db-pool
+#    url: jdbc:mysql://localhost:3306/sys
+#    userName: tacos
+#    password: password123
 #logging:
 #  level: DEBUG
 #  org.springframework.security: DEBUG
