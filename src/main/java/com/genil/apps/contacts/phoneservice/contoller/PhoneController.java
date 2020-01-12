@@ -7,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.List;
@@ -21,13 +19,13 @@ import java.util.List;
  * For project : email-update
  **/
 @RestController
-@RequestMapping("/api/v1/contacts/phone")
+@RequestMapping("/api/v1/contacts")
 @Slf4j
 public class PhoneController {
     @Autowired
     private PhoneRepo phoneRepo;
 
-    @GetMapping("/all")
+    @GetMapping("/phone/all")
     public List<Phone> getAllEmails(@RequestParam @Max(200) @Min(0) Integer pageNumber,
                                     @RequestParam @Max(100) @Min(5) Integer size) {
         log.info("Retrieving all phone numbers. Page Number " + pageNumber + "Size "+size);
@@ -35,4 +33,17 @@ public class PhoneController {
         List<Phone> phoneList = phoneRepo.findAll(Sort.by(Sort.Direction.ASC, "id"));
         return phoneList;
     }
+
+    @PostMapping("/phone")
+    Phone newPhone(@Valid @RequestBody Phone phone) {
+        log.info("Phone object passed by client "+phone);
+        return phoneRepo.save(phone);
+    }
+
+    @GetMapping("/phone/{id}")
+    Phone getOnePhone(@PathVariable(value = "id") Long id){
+        return phoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Phone ID not found"));
+    }
+
+
 }
