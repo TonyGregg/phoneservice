@@ -3,7 +3,7 @@ server:
   ip: 1.2.3.4
 spring:
   application:
-    name: Mini-Cars-Phone-update-Service
+    name: phone-update-service
 #  datasource:
 #    hikari:
 #      maximum-pool-size: 35
@@ -45,5 +45,10 @@ health:
     enabled: true
 eureka:
   client:
+    register-with-eureka: true
     service-url:
-      default-zone: http://localhost:8761/eureka
+      default-zone: http://${vcap.services.naming-server.credentials.uri://localhost:8761}/eureka
+  instance:
+    instance-id: ${spring.application.name}:{vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+    hostname: ${vcap.application.uris[0]}
+    lease-renewal-interval-in-seconds: 10
