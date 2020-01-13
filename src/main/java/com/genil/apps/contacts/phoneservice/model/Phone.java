@@ -2,10 +2,7 @@ package com.genil.apps.contacts.phoneservice.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Antony Genil Gregory on 1/12/2020 9:02 AM
@@ -20,6 +17,7 @@ public class Phone {
     private String phoneNumber;
     private String userName;
     private Boolean isPrimary;
+    @Transient
     private String phoneServiceInstanceInfo;
 
 }

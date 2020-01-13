@@ -3,7 +3,7 @@ server:
   ip: 1.2.3.4
 spring:
   application:
-    name: Mini-Cars-Phone-update-Servie
+    name: Mini-Cars-Phone-update-Service
 #  datasource:
 #    hikari:
 #      maximum-pool-size: 35
@@ -43,3 +43,7 @@ management:
 health:
   config:
     enabled: true
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
