@@ -1,5 +1,6 @@
 package com.genil.apps.contacts.phoneservice.contoller;
 
+import com.genil.apps.contacts.phoneservice.environment.InstanceInformationService;
 import com.genil.apps.contacts.phoneservice.model.Phone;
 import com.genil.apps.contacts.phoneservice.repos.PhoneRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,9 @@ public class PhoneController {
     @Autowired
     private PhoneRepo phoneRepo;
 
+    @Autowired
+    InstanceInformationService instanceInformationService;
+
     @GetMapping("/phone/all")
     public List<Phone> getAllEmails(@RequestParam @Max(200) @Min(0) Integer pageNumber,
                                     @RequestParam @Max(100) @Min(5) Integer size) {
@@ -42,7 +46,9 @@ public class PhoneController {
 
     @GetMapping("/phone/{id}")
     Phone getOnePhone(@PathVariable(value = "id") Long id){
-        return phoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Phone ID not found"));
+        Phone phone = phoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Phone ID not found"));
+        phone.setPhoneServiceInstanceInfo(instanceInformationService.retrieveInstanceInfo());
+        return phone;
     }
 
 

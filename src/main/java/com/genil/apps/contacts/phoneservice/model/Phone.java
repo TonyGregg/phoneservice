@@ -20,5 +20,6 @@ public class Phone {
     private String phoneNumber;
     private String userName;
     private Boolean isPrimary;
+    private String phoneServiceInstanceInfo;
 
 }
